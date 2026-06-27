@@ -54,3 +54,31 @@ jobs:
         path: yemeni-assistant-release.zip
         retention-days: 7
 
+    - name: Set up Java JDK 17
+      if: matrix.node-version == '22.x'
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'zulu'
+        java-version: '17'
+        cache: 'gradle'
+
+    - name: Sync Capacitor Android Assets
+      if: matrix.node-version == '22.x'
+      run: npx cap sync android
+
+    - name: Build Android APKs (Debug & Release)
+      if: matrix.node-version == '22.x'
+      run: |
+        cd android
+        chmod +x gradlew
+        ./gradlew assembleDebug assembleRelease
+
+    - name: Upload Native Android APK Artifacts
+      if: matrix.node-version == '22.x'
+      uses: actions/upload-artifact@v4
+      with:
+        name: yemeni-assistant-android-apks
+        path: android/app/build/outputs/apk/**/*.apk
+        retention-days: 7
+
+
