@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { AppSettings } from "../types";
+import { getApiUrl } from "../utils";
 import { 
   Languages, FileText, GraduationCap, Briefcase, Copy, Check, 
   Send, Calculator, FileCheck, Coins, RefreshCw, Sparkles, BookOpen, AlertCircle
@@ -56,7 +57,7 @@ export default function YemeniToolsSection({ settings }: YemeniToolsSectionProps
     setLoading(true);
     setResult("");
     try {
-      const res = await fetch("/api/gemini/convert-dialect", {
+      const res = await fetch(getApiUrl("/api/gemini/convert-dialect"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -83,7 +84,7 @@ export default function YemeniToolsSection({ settings }: YemeniToolsSectionProps
     setLoading(true);
     setResult("");
     try {
-      const res = await fetch("/api/gemini/write-letter", {
+      const res = await fetch(getApiUrl("/api/gemini/write-letter"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -111,7 +112,7 @@ export default function YemeniToolsSection({ settings }: YemeniToolsSectionProps
     setLoading(true);
     setResult("");
     try {
-      const res = await fetch("/api/gemini/student-assistant", {
+      const res = await fetch(getApiUrl("/api/gemini/student-assistant"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -138,7 +139,7 @@ export default function YemeniToolsSection({ settings }: YemeniToolsSectionProps
     setLoading(true);
     setResult("");
     try {
-      const res = await fetch("/api/gemini/business-assistant", {
+      const res = await fetch(getApiUrl("/api/gemini/business-assistant"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

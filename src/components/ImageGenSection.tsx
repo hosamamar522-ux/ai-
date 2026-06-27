@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AppSettings, UserProfile } from "../types";
+import { getApiUrl } from "../utils";
 import { 
   Sparkles, Download, Share2, Plus, RefreshCw, Trash2, Image as ImageIcon,
   Copy, Check, AlertCircle, Bookmark, ArrowRight, CornerDownLeft
@@ -74,7 +75,7 @@ export default function ImageGenSection({ settings, user, onIncrementMessages }:
     onIncrementMessages();
 
     try {
-      const res = await fetch("/api/gemini/generate-image", {
+      const res = await fetch(getApiUrl("/api/gemini/generate-image"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

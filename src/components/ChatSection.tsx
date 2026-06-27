@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Chat, Message, UserProfile, AppSettings } from "../types";
+import { getApiUrl } from "../utils";
 // @ts-ignore
 import avatarImg from "../assets/images/yemeni_avatar_1782059854676.jpg";
 import { 
@@ -228,7 +229,7 @@ export default function ChatSection({
     abortControllerRef.current = new AbortController();
 
     try {
-      const res = await fetch("/api/gemini/chat", {
+      const res = await fetch(getApiUrl("/api/gemini/chat"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -508,7 +509,7 @@ export default function ChatSection({
     })) || [];
 
     try {
-      const res = await fetch("/api/gemini/chat", {
+      const res = await fetch(getApiUrl("/api/gemini/chat"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -635,7 +636,7 @@ export default function ChatSection({
 
     prefetchActiveSetRef.current.add(chunkText);
     try {
-      const res = await fetch("/api/gemini/tts", {
+      const res = await fetch(getApiUrl("/api/gemini/tts"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: chunkText })
@@ -716,7 +717,7 @@ export default function ChatSection({
     // If not cached, fetch it synchronously now
     if (!base64Audio) {
       try {
-        const res = await fetch("/api/gemini/tts", {
+        const res = await fetch(getApiUrl("/api/gemini/tts"), {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ text: chunkText })

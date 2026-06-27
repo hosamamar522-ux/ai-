@@ -1,0 +1,6 @@
+{
+	"appId": "com.yemeniassistant.app",
+	"appName": "Yemeni Assistant",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}
