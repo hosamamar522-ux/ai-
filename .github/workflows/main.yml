@@ -54,12 +54,12 @@ jobs:
         path: yemeni-assistant-release.zip
         retention-days: 7
 
-    - name: Set up Java JDK 17
+    - name: Set up Java JDK 21
       if: matrix.node-version == '22.x'
       uses: actions/setup-java@v4
       with:
         distribution: 'zulu'
-        java-version: '17'
+        java-version: '21'
 
     - name: Ensure Capacitor Android Platform is Added and Synced
       if: matrix.node-version == '22.x'
