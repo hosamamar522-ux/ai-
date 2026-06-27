@@ -69,6 +69,13 @@ jobs:
         fi
         npx cap sync android
 
+    - name: Fix/Download Uncorrupted Gradle Wrapper JAR
+      if: matrix.node-version == '22.x'
+      run: |
+        mkdir -p android/gradle/wrapper
+        curl -L https://raw.githubusercontent.com/gradle/gradle/v8.14.3/gradle/wrapper/gradle-wrapper.jar -o android/gradle/wrapper/gradle-wrapper.jar
+        echo "Successfully downloaded fresh, uncorrupted gradle-wrapper.jar"
+
     - name: Build Android APKs (Debug & Release)
       if: matrix.node-version == '22.x'
       run: |
