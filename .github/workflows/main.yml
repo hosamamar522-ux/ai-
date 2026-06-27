@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         node-version: [20.x, 22.x]
-        # نقوم بالبناء على نسخ حديثة ومستقرة من Node.js متوافقة تماماً مع Vite و TypeScript
+        # Runs the build on stable modern Node.js versions compatible with TypeScript and Vite
 
     steps:
     - name: Checkout repository
@@ -23,7 +23,7 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm' # تفعيل التخزين المؤقت للمكتبات (Caching) لتسريع عملية البناء بشكل مذهل!
+        cache: 'npm' # Automatically caches npm dependencies for lightning-fast builds
 
     - name: Install dependencies
       run: npm ci
@@ -35,3 +35,22 @@ jobs:
       run: npm run build
       env:
         NODE_ENV: production
+
+    - name: Create Production Release Archive (ZIP)
+      if: matrix.node-version == '22.x'
+      run: |
+        # Install zip if not present (it is usually pre-installed on ubuntu-latest)
+        sudo apt-get update && sudo apt-get install -y zip
+        
+        # Package dist, package.json, and .env.example into a single production archive
+        zip -r yemeni-assistant-release.zip dist package.json .env.example
+        echo "Release zip created successfully!"
+
+    - name: Upload Production Release Artifact
+      if: matrix.node-version == '22.x'
+      uses: actions/upload-artifact@v4
+      with:
+        name: yemeni-assistant-release
+        path: yemeni-assistant-release.zip
+        retention-days: 7
+
